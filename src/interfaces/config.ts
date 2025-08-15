@@ -5,4 +5,5 @@ export interface AppConfig {
   awsProfile: string;
   region: string;
   rds: RdsConfig;
+  stateBucketPostfix: string;
 }

@@ -1,4 +1,4 @@
-import { App } from "cdktf";
+import { App, S3Backend } from "cdktf";
 import { RdsStack } from "./src/stacks/rds";
 import { loadConfig } from "./src/helpers/config";
 
@@ -14,7 +14,13 @@ const config = loadConfig(`./config/${envName}.yaml`);
 const stackName = process.env.STACK_NAME;
 switch (stackName) {
   case "rds":
-    new RdsStack(app, "RDS", config);
+    const rdsStack = new RdsStack(app, "RDS", config);
+
+    new S3Backend(rdsStack, {
+      bucket: `${config.accountId}-terraform-states`,
+      key: `${envName}/rds/terraform.tfstate`,
+      region: config.region
+    });
     break;
 }
 

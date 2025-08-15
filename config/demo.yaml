@@ -1,11 +1,14 @@
 accountId: "756007437776"
 region: "ap-southeast-1"
 awsProfile: "default"
+stateBucketPostfix: "terraform-states"
 
 rds:
   name: "demo-cluster"
   engine: "aurora-mysql"
   family: "8.0"
+  ingress:
+    - "10.0.0.0/16"
   parameters:
     - key: character_set_server
       value: utf8
